@@ -8,33 +8,25 @@ on:
 
 jobs:
   terraform:
-    runs-on: self-hosted   # ✅ Runs on your EC2 server (self-hosted runner)
+    runs-on: self-hosted   # This must match your EC2 runner's label
 
     steps:
-      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # (No need for AWS credentials block here ✅)
-      # Credentials will come from the IAM role attached to EC2
-
-      # Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.9.5
 
-      # Initialize Terraform
       - name: Terraform Init
         working-directory: onefolder
         run: terraform init
 
-      # Terraform Plan
       - name: Terraform Plan
         working-directory: onefolder
         run: terraform plan
 
-      # Terraform Apply (only on main branch, not PRs)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         working-directory: onefolder
