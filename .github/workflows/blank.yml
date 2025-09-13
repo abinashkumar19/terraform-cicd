@@ -15,6 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Configure AWS credentials (IMPORTANT)
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ AKIA4X6BR242WDOVS26U }}
+          aws-secret-access-key: ${{ AvNunwSHntbJ8nODNPahZdFRHbui4vmAlfEeIAnL }}
+          aws-region: us-west-2   # or your AWS region
+
       # Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
